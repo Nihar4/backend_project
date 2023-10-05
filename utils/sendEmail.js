@@ -2,12 +2,6 @@ import { createTransport } from "nodemailer";
 
 export const sendEmail = async (to, subject, text) => {
     const transporter = createTransport({
-        // host: process.env.SMTP_HOST,
-        // port: process.env.SMTP_PORT,
-        // auth: {
-        //     user: process.env.SMTP_USER,
-        //     pass: process.env.SMTP_PASS,
-        // },
         service: "gmail",
         host: "smtp.gmail.com",
         port: 465,
@@ -17,9 +11,21 @@ export const sendEmail = async (to, subject, text) => {
             pass: "mtjjyzpfeippifdp",
         },
     });
-    await transporter.sendMail({
-        to,
-        subject,
-        text,
-    });
+
+    // Check if 'to' is an array of email addresses
+    if (Array.isArray(to)) {
+        // Send the email to multiple recipients
+        await transporter.sendMail({
+            to: to.join(', '), // Join email addresses with a comma and space
+            subject,
+            text,
+        });
+    } else {
+        // Send the email to a single recipient
+        await transporter.sendMail({
+            to,
+            subject,
+            text,
+        });
+    }
 };

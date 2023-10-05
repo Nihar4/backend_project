@@ -27,14 +27,16 @@ app.use(
 );
 
 // // Importing & Using Routes
-// import stock from "./routes/stocksRoute.js";
+
 import user from "./routes/userRoutes.js";
+import assignment from "./routes/assignmentRoutes.js";
+
 // import payment from "./routes/paymentRoutes.js";
 
 // app.use("/api/v1", payment);
 // app.use("/api/v1", stock);
 app.use("/api/v1", user);
-
+app.use("/api/v1", assignment);
 
 export default app;
 
