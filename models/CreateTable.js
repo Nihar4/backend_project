@@ -2,13 +2,13 @@ import { dbConnection } from "../config/database.js";
 
 // Function to create a table
 function createTable(sql, tableName) {
-    dbConnection.query(sql, (err, results) => {
-        if (err) {
-            console.error(`Error creating ${tableName} table: ${err}`);
-            return;
-        }
-        console.log(`${tableName} table created`);
-    });
+  dbConnection.query(sql, (err, results) => {
+    if (err) {
+      console.error(`Error creating ${tableName} table: ${err}`);
+      return;
+    }
+    console.log(`${tableName} table created`);
+  });
 }
 
 
@@ -44,7 +44,6 @@ const assignmentSubmissionsTableSQL = `
     student_id INT,
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     submission_text TEXT,
-    submission_score INT,
     FOREIGN KEY (assignment_id) REFERENCES Assignments(assignment_id),
     FOREIGN KEY (student_id) REFERENCES Users(user_id)
   )
@@ -66,32 +65,33 @@ const assignmentGradesTableSQL = `
 `;
 
 // Create AssignmentReports table
-const assignmentReportsTableSQL = `
-  CREATE TABLE IF NOT EXISTS AssignmentReports (
-    report_id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT,
-    assignment_id INT,
-    submission_id INT,
-    grade_id INT,
-    submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    grade_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    grade INT,
-    comments TEXT,
-    FOREIGN KEY (student_id) REFERENCES Users(user_id),
-    FOREIGN KEY (assignment_id) REFERENCES Assignments(assignment_id),
-    FOREIGN KEY (submission_id) REFERENCES AssignmentSubmissions(submission_id),
-    FOREIGN KEY (grade_id) REFERENCES AssignmentGrades(grade_id)
-  )
-`;
+// const assignmentReportsTableSQL = `
+//   CREATE TABLE IF NOT EXISTS AssignmentReports (
+//     report_id INT AUTO_INCREMENT PRIMARY KEY,
+//     student_id INT,
+//     assignment_id INT,
+//     submission_id INT,
+//     grade_id INT,
+//     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//     grade_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//     grade INT,
+//     comments TEXT,
+//     FOREIGN KEY (student_id) REFERENCES Users(user_id),
+//     FOREIGN KEY (assignment_id) REFERENCES Assignments(assignment_id),
+//     FOREIGN KEY (submission_id) REFERENCES AssignmentSubmissions(submission_id),
+//     FOREIGN KEY (grade_id) REFERENCES AssignmentGrades(grade_id)
+//   )
+// `;
 
 // Call the createTable function for each table
 export const createAllTables = async () => {
-    // Connect to the database
-    createTable(usersTableSQL, 'Users');
-    createTable(assignmentsTableSQL, 'Assignments');
-    createTable(assignmentSubmissionsTableSQL, 'AssignmentSubmissions');
-    createTable(assignmentGradesTableSQL, 'AssignmentGrades');
-    createTable(assignmentReportsTableSQL, 'AssignmentReports');
+  // Connect to the database
+  createTable(usersTableSQL, 'Users');
+  createTable(assignmentsTableSQL, 'Assignments');
+  createTable(assignmentSubmissionsTableSQL, 'AssignmentSubmissions');
+  createTable(assignmentGradesTableSQL, 'AssignmentGrades');
+  // createTable(assignmentReportsTableSQL, 'AssignmentReports');
 }
 
 
+// student subid assid gradeid 

@@ -16,7 +16,7 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
     const selectUserByIdQuery = 'SELECT * FROM Users WHERE username = ?';
 
     // Perform the MySQL query
-    await dbConnection.query(selectUserByIdQuery, [decoded.username], (queryErr, results) => {
+    dbConnection.query(selectUserByIdQuery, [decoded.username], (queryErr, results) => {
         if (queryErr) {
             return next(new ErrorHandler("failed", 409));
         }
@@ -46,14 +46,13 @@ export const authorizeTeacher = (req, res, next) => {
     next();
 };
 
-// export const authorizeAdmin = (req, res, next) => {
-//     if (req.user.role !== "admin")
-//         return next(
-//             new ErrorHandler(
-//                 `${req.user.role} is not allowed to access this resource`,
-//                 403
-//             )
-//         );
+export const authorizeStudent = (req, res, next) => {
+    console.log(req.user)
+    if (req.user.role !== "student")
+        return next(
+            new ErrorHandler(`Only Student Can access this resource`, 403)
+        );
 
-//     next();
-// };
+    next();
+};
+

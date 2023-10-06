@@ -1,12 +1,8 @@
-import mysql from "mysql";
+import mysql from "mysql2";
+
 import { createAllTables } from "../models/CreateTable.js";
 
-export const dbConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'project',
-    password: 'mysql123',
-    database: 'project'
-});
+export const dbConnection = mysql.createConnection("mysql://root:gRhXFInR1DvhGnoFptuK@containers-us-west-155.railway.app:5748/railway");
 
 export const connectDB = async () => {
     // Connect to the database
